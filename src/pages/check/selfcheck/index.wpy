@@ -1,0 +1,16 @@
+<style lang="less">
+
+</style>
+
+<template>
+    <view>
+        SelfCheck
+    </view>
+</template>
+
+<script>
+import wepy from "wepy";
+export default class SelfCheck extends wepy.page{
+    
+}
+</script>

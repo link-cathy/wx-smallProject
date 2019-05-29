@@ -1,0 +1,87 @@
+<style lang="less">
+.passto-task{
+    .select-icon{
+        border-right: none;
+    }
+}
+</style>
+
+<template>
+  <view class=" passto-task page">
+      <view class="page__bd page__bd_spacing">
+            <view class="weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">添加转交人</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker  @change="bindUserChange" value="{{index}}" range="{{users}}" range-key="name">
+                            <!-- <view class="weui-cell__ft weui-cell__ft_in-access icon"></view> -->
+                            <view class="weui-select weui-select_in-select-after select-icon">{{showVal}}</view>
+                        </picker>
+                    </view>
+                </view>
+            </view>   
+            <view class="weui-cells__title">转交原因</view>
+            <view class="weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <textarea class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" />
+                        <view class="weui-textarea-counter">0/200</view>
+                    </view>
+                </view>
+            </view>
+            <view>                 
+                 <button @tap="bindClickSubmit()" class="weui-btn" type="primary">确定</button>     
+            </view>
+      </view>
+  </view>
+  
+</template>
+
+<script>
+import wepy from "wepy";
+export default class PassToTask extends wepy.page {
+     config = {
+         navigationBarTitleText: '转交任务'
+       }
+    data={
+        index: -1,
+        users: [
+            {
+                id:0,
+                name:'张三'
+            },
+            {
+                id:1,
+                name:'李四'
+            }
+        ],
+        showVal: '',
+        showArr: [] 
+    }
+    methods = {
+        bindUserChange(e) {
+            const arr =this.showArr;
+            !arr.find(obj=>obj === e.detail.value) && arr.push(e.detail.value);
+            this.showArr=arr;
+            this.showVal = arr.map(obj=>this.users[parseInt(obj,10)].name).join(',');
+        },
+        async bindClickSubmit() {
+            let res = await wepy.showModal({
+                    title: '',
+                    content: `确定转交给${this.showVal}`,
+                    confirmText: '确定',
+                    cancelText: '取消'
+                });
+
+                console.log(res);
+                // if (res.confirm) {
+                //     console.log('用户点确定操作');
+                // } else {
+                //     console.log('用户点击取消作');
+                // }
+        }
+    }
+}
+</script>

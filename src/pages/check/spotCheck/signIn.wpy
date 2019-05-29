@@ -1,0 +1,60 @@
+<style lang='less'>
+.signIn {
+    .back{
+            background: #fff;
+    }
+    .camera-style{
+            width: 60%;
+            border: 1px dashed #fff;
+            padding-top: 20px;
+            padding-left: 40%;
+            padding-right: 35%;
+    }
+    .image-style{
+            width: 68px;
+            height: 68px;
+    }
+}
+</style>
+
+<template>
+  <view  class="signIn page">
+     <view class="page__bd page__bd_spacing">
+            <view class="kind-list">                  
+                <view class="weui-flex kind-list__item-hd">
+                        <view class="weui-flex__item">当前门店</view>
+                </view>
+                <view class="weui-flex kind-list__item-hd back">
+                        <view class="weui-flex__item">北京西直门分店</view>
+                </view>
+                <view class="weui-flex kind-list__item-hd">
+                        <view class="weui-flex__item">当前地址</view>
+                </view>
+                <view class="weui-flex kind-list__item-hd back">
+                        <view class="weui-flex__item">北京西城区西直门1号</view>
+                </view>
+            </view>
+            <view class="weui-flex">
+                <view class=" weui-flex__item camera-style">                    
+                        <image class="image-style" src="/img/camera.png"/>
+                        <view>拍照签到</view>                    
+                </view>
+            </view>
+            <button class="weui-btn" type="primary" @tap="toggle()">签到</button>               
+     </view>                
+  </view>  
+</template>
+
+<script>
+   import wepy from 'wepy';
+   export default class SignIn extends wepy.page {
+    config = {
+       navigationBarTitleText: '现场巡店'
+    }
+    methods={
+        toggle(){
+            wx.navigateTo({url:'/pages/check/spotCheck/signOff'})
+        }
+    }
+   }
+</script>

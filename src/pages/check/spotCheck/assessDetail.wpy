@@ -1,0 +1,144 @@
+<style lang="less">
+.assess-detail{
+   padding: 16px;
+  .detail-header{
+      background: #efefef;
+      border-radius: 10px;
+      padding: 1px 10px;
+      .weui-flex{
+          margin: 16px 0;
+      }
+      .weui-flex__item{
+          flex: none;
+      }
+  }
+  .detail-container{
+      position: relative;
+      background: #fff;
+       border-radius: 10px;
+      .detail-canvas{
+          position:absolute;
+          justify-content: center;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+      }
+      .detail-pass{
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          image{
+              height: 30px;
+              width: 30px;
+          }
+      } 
+  }
+   .detail-footer{
+       margin: 16px 0;
+   }
+}
+</style>
+
+<template>
+    <view class="assess-detail page">
+       <view class="detail-header">
+          <view class="weui-flex">
+              <view class="weui-flex__item">
+                  <text>门店名称：</text>
+              </view>
+              <view class="weui-flex__item">
+                  <text>北京西直门分店</text>
+              </view>
+          </view>
+           <view class="weui-flex">
+              <view class="weui-flex__item">
+                  <text>执行人：</text>
+              </view>
+              <view class="weui-flex__item">
+                  <text>张三</text>
+              </view>
+          </view>
+           <view class="weui-flex">
+              <view class="weui-flex__item">
+                  <text>评估表：</text>
+              </view>
+              <view class="weui-flex__item">
+                  <text>评估表1</text>
+              </view>
+          </view>
+       </view>
+       <view class="detail-container">
+            <view class="weui-flex"> 
+                <canvas style="width: {{ Width }}px; height: 300px;" canvas-id="firstCanvas"></canvas>
+                <view class="detail-canvas" style="left:{{Width/2-45}}px">             
+                   <view>合格率</view>
+                   <view>50%</view>
+                </view>
+           </view>
+           <view class="weui-flex">
+                    <view class="weui-flex__item detail-pass">
+                        <view>
+                            <image src='/img/assess.png'></image>
+                        </view>
+                        <view>
+                            总评估项12
+                        </view>
+                    </view>
+                     <view class="weui-flex__item detail-pass">
+                        <view>
+                            <image src='/img/standard.png'></image>
+                        </view>
+                        <view>
+                            合格6
+                        </view>
+                    </view>
+                     <view class="weui-flex__item detail-pass">
+                        <view>
+                            <image src='/img/below.png'></image>
+                        </view>
+                        <view>
+                            不合格6
+                        </view>
+                    </view>
+            </view>         
+       </view>
+       <view class="detail-footer">
+            <button class="weui-btn" type="primary">查看评估详情</button>
+       </view>
+    </view>
+</template>
+
+<script>
+import wepy from "wepy";
+export default class AssessDetail extends wepy.page{
+    config = {
+        navigationBarTitleText: '评估表结果'
+     }
+    data={
+        Width:0
+    }
+    onLoad(){
+        const res = wx.getSystemInfoSync();
+        this.Width = res.windowWidth;
+        console.log('res', res);
+    }
+    onReady(){
+        const ctx = wx.createCanvasContext('firstCanvas');      
+        ctx.setLineCap("round");
+        ctx.setLineWidth(30);
+        // 开始画图 不合格的图形
+        ctx.setStrokeStyle("#F2F2F2");
+        ctx.beginPath();
+        ctx.arc(this.Width/2-20, 150, 100, Math.PI/180 * 180, Math.PI/180 * 360, true);
+        ctx.stroke();
+
+        // 开始画图 合格率的图形
+        ctx.setStrokeStyle("#53C996");
+        ctx.beginPath();
+        ctx.arc(this.Width/2-20, 150, 100,0, Math.PI/180 * 180, true);
+        ctx.stroke();
+        ctx.draw();    
+    }
+}
+</script>
+

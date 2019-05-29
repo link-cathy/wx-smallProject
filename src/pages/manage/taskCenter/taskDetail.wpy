@@ -1,0 +1,111 @@
+<style lang="less">
+.task-detail{
+    .icon-style{
+            margin-right: 15px;
+        }
+}
+</style>
+
+<template>
+    <view class="task-detail page">
+            <view class="weui-form-preview">
+                <view class="weui-form-preview__hd">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">任务名称</view>
+                        <view class="weui-form-preview__value_in-hd">某某店检查任务1</view>
+                    </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">任务Id</view>
+                        <view class="weui-form-preview__value">78247828</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">执行日期</view>
+                        <view class="weui-form-preview__value">2019-05-12</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">检查对象</view>
+                        <view class="weui-form-preview__value">北京西直门分店</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">评估检查表</view>
+                        <view class="weui-form-preview__value">检查表1</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">执行人</view>
+                        <view class="weui-form-preview__value">张三</view>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">相关负责人</view>
+                        <view class="weui-form-preview__value">李四,王五</view>
+                    </view>
+                </view>
+                <!-- <view class="weui-form-preview__ft">
+                    <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                </view> -->
+            </view>
+
+            <view class="weui-search-bar">
+                <view class="weui-search-bar__form">
+                    <view class="weui-search-bar__box">
+                        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                            <icon type="clear" size="14"></icon>
+                        </view>
+                    </view>
+                    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                        <icon class="weui-icon-search" type="search" size="14"></icon>
+                        <view class="weui-search-bar__text">搜索</view>
+                    </label>
+                </view>
+                <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+            </view>           
+            <view class="weui-cells_after-title">
+                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                    <view class="weui-cell__hd">
+                       <icon type="success" size="20" class="icon-style"></icon>
+                    </view>
+                    <view class="weui-cell__bd">任务1(已完成)</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access">查看详情</view>
+                </navigator>
+                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                    <view class="weui-cell__hd">
+                         <icon type="waiting" size="20" class="icon-style"></icon>
+                    </view>
+                    <view class="weui-cell__bd">任务2(进行中)</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access">查看详情</view>
+                </navigator>
+            </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class TaskDetail extends wepy.page{
+        config = {
+             navigationBarTitleText: '任务详情'
+        }
+        data = {
+            inputShowed: false,
+            inputVal: ''
+        };
+
+        methods = {
+            showInput () {
+                this.inputShowed = true;
+            },
+            hideInput () {
+                this.inputVal = '';
+                this.inputShowed = false;
+            },
+            clearInput () {
+                this.inputVal = '';
+            },
+            inputTyping (e) {
+                this.inputVal = e.detail.value;
+            }
+        }
+}
+</script>

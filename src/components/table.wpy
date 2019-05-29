@@ -1,0 +1,58 @@
+<style lang="less">
+.table-list{
+  .icon{
+        bottom: 20px;
+      } 
+  .list-view{
+    border-bottom: 1px solid #eee;
+  }    
+}   
+</style>
+<template>
+    <view  class="table-list page">
+      <block  wx:for="{{list}}" wx:key="{{item.id}}">
+        <navigator url="{{item.pages}}" >
+            <view class="weui-media-box weui-media-box_text list-view">
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.title}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access icon"></view>
+                <view class="weui-media-box__desc">{{item.content}}</view>
+                <view class="weui-media-box__desc">{{item.content}}</view>
+            </view>
+        </navigator>
+      </block>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Table extends wepy.component {
+     data = {
+       list: [
+         {
+           id: 1,
+           title: '门店名称1',
+           content: '北京市西城区西直门1',
+           pages:'signIn' 
+         },
+           {
+           id: 2,
+           title: '门店名称2',
+           content: '北京市西城区西直门2',
+           pages:'signIn'  
+         },
+           {
+           id: 3,
+           title: '门店名称3',
+           content: '北京市西城区西直门3',
+           pages:'signIn' 
+         },
+           {
+           id: 4,
+           title: '门店名称4',
+           content: '北京市西城区西直门3',
+           pages:'signIn'  
+         },
+       ]
+     }
+  }
+</script>

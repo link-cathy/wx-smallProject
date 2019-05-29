@@ -1,0 +1,187 @@
+<style lang="less">
+ .add-task-form{
+        .select-icon{
+            border-right: none;
+        }
+        .weui-cells_after-title{
+            margin-bottom: 20px;
+        }
+ }
+</style>
+
+<template>
+    <view class="add-task-form page">
+        <view class="page__bd">
+            <form bindsubmit="formSubmit" bindreset="formReset">
+                <view class="weui-cells_after-title">
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">任务名称</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input name='taskName' class="weui-input" placeholder="请输入任务名称" />
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">任务周期</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name='taskCycle' value="{{taskCycle_index}}" range="{{taskCycle}}" data-key='taskCycle_index'  @change="bindChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{taskCycle[taskCycle_index]}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">开始时间</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name='date' mode="date" value="{{date}}" start="1900-01-01" end="2099-12-31"  @change="bindDateChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{date}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">结束时间</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name='date1' mode="date" value="{{time}}" start="1900-01-01" end="2099-12-31" @change="bindTimeChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{time}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">检查对象</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name='checkObject' value="{{checkObject_index}}" range="{{checkObject}}" data-key='checkObject_index' range-key="name" @change="bindChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{checkObject[checkObject_index].name}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">添加评估表</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name='checkTable' value="{{checkTable_index}}" range="{{checkTable}}" data-key="checkTable_index" range-key="name" @change="bindChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{checkTable[checkTable_index].name}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">执行人</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name='workMan' value="{{workMan_index}}" range="{{workMan}}" data-key="workMan_index" range-key="name" @change="bindChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{workMan[workMan_index].name}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell ">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">相关负责人</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker name="principalMan" value="{{principalMan_index}}" range="{{principalMan}}" data-key="principalMan_index" range-key="name" @change="bindChange">
+                                <view class="weui-select weui-select_in-select-after select-icon">{{principalMan_val}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+                <view class="page__bd_spacing">                 
+                    <button class="weui-btn" form-type="submit" type="primary">提交</button>     
+                </view>
+            </form>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class AddTaskForm extends wepy.page {
+     config = {
+         navigationBarTitleText: '新建任务'
+       }
+    data = {
+       date:'',
+       time:'',
+       taskCycle:['每天','每周','每月','无周期'],
+       taskCycle_index:-1,
+       checkObject:[
+           {
+               id:0,
+               name:'北京西直门分店' 
+           },
+           {
+               id:1,
+               name:'北京东直门分店' 
+           }
+       ],
+       checkObject_index:-1,
+       checkTable:[
+           {
+               id:0,
+               name:'评估表1'
+           },
+            {
+               id:1,
+               name:'评估表2'
+           }
+       ],
+       checkTable_index:-1,
+       workMan:[
+           {
+               id:0,
+               name:'张三'
+           },
+           {
+               id:1,
+               name:'李四'
+           }
+       ],
+       workMan_index:-1,
+       principalMan:[
+           {
+               id:0,
+               name:'王五'
+           },
+           {
+               id:1,
+               name:'周六'
+           }
+       ],
+       principalMan_index: -1,
+       principalMan_arr: [],
+       principalMan_val: ''
+    }
+    methods = {
+            bindDateChange (e) {
+                this.date = e.detail.value;
+            },
+            bindTimeChange (e) {
+                this.time = e.detail.value;
+            },
+            bindChange (e) {
+                const key = e.currentTarget.dataset.key;
+                if(key) this[key] = e.detail.value;
+                if(key === 'principalMan_index') {
+                    const arr =this.principalMan_arr;
+                    !arr.find(obj=>obj === e.detail.value) && arr.push(e.detail.value);
+                    this.principalMan_arr=arr;
+                    this.principalMan_val = arr.map(obj=>this.principalMan[parseInt(obj,10)].name).join(',');
+                }
+            },
+            formSubmit: function(e) {
+                console.log('form发生了submit事件，携带数据为：', e.detail.value)
+            },
+            formReset: function() {
+                console.log('form发生了reset事件')
+            }
+    }
+}
+</script>

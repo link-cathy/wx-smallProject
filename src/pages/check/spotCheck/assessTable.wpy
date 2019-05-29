@@ -1,0 +1,273 @@
+<style lang="less">
+   .assess-table{
+       .list-flex{
+           align-items: start;
+           .flex-itm-style{
+                flex:3;
+                padding: 8px;
+            .list-item{
+                background: #fff;
+                .icon-style{
+                        transform: rotate(90deg)
+                    }
+                .icon-rotate{
+                    transform: rotate(-90deg)
+                   }    
+                }            
+                .open-view{
+                    padding-left: 10px;
+                     .icon-image{
+                        height: 35px;
+                        width: 35px;
+                    }
+                    .icon-left{
+                        margin-right: 20px;
+                    }
+                }
+             }
+            .left-list{
+                background: #fff;
+            } 
+       }      
+      .footer-btn{
+            position:fixed;
+            bottom:0;
+            left:0;
+            width:100%;
+            button{
+                border-radius: 0;
+                border: none;
+            }
+      } 
+      
+    
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+    ::-webkit-scrollbar
+    {
+        width: 3px;
+        height: 6px;
+        // background-color: #ffffff;
+    }
+    /*定义滚动条轨道 内阴影+圆角*/
+    ::-webkit-scrollbar-track
+    {
+        // -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background:none;
+    }
+    /*定义滑块 内阴影+圆角*/
+    ::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,.3);
+    }    
+   }
+
+</style>
+
+<template>
+    <view class="assess-table page">
+        <view class="page__bd">
+            <view class="weui-flex list-flex">
+                <view  class="weui-flex__item">                  
+                    <view  class="kind-list__item-hd {{currentList === item.id ? 'left-list':'' }}" wx:for="{{config}}" wx:key="{{item.id}}" @tap="clickLeftList({{item.id}})">
+                            <view class="weui-flex__item">{{item.name}}</view>
+                    </view>
+                </view>
+                <view class="weui-flex__item flex-itm-style">
+                    <view class="kind-list__item list-item" wx:for="{{list}}" wx:key="{{item.id}}">
+                        <view id="{{item.id}}" class="weui-flex kind-list__item-hd" @tap="toggle({{item.id}})">
+                            <view class="weui-flex__item">{{item.name}}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access {{ item.open ? 'icon-rotate':'icon-style'}}"></view>
+                        </view>
+                        <view class="weui-flex kind-list__item-bd {{!item.open ? 'kind-list__item-bd_show' : ''}}">
+                            <view class="weui-flex__item open-view">
+                                <image src="/img/camera.png" class="icon-image" @tap="clickCameraImage()"></image>
+                            </view>
+                             <view class="weui-flex__item open-view">
+                                <image src="/img/video.jpg" class="icon-image" @tap="clickVideoImage()"></image>
+                            </view>
+                            <view class="weui-flex__item open-view" style="flex:2">
+                            <icon type="success" size='35' class="icon-left"></icon>
+                            <icon type="cancel" size='35'></icon>
+                            </view>
+                        </view>
+                        <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                                <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                                    <view>
+                                        <image src="/img/rabit.jpg" style="width:100%"></image>
+                                    </view>
+                                    <view>
+                                        <video
+                                        style="width:100%"
+                                            id="myVideo"
+                                            src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
+                                            enable-danmu
+                                            danmu-btn
+                                            controls
+                                        ></video>
+                                    </view>
+                                    <view class="weui-cell__bd weui-flex">
+                                        <view class="weui-flex__item open-view">
+                                            <image src="/img/camera.png" class="icon-image" @tap="clickCameraImage()"></image>
+                                        </view>
+                                        <view class="weui-flex__item open-view">
+                                            <image src="/img/video.jpg" class="icon-image" @tap="clickVideoImage()"></image>
+                                        </view>
+                                        <view class="weui-flex__item open-view" style="flex:2">
+                                        <icon type="success" size='35' class="icon-left"></icon>
+                                        <icon type="cancel" size='35'></icon>
+                                        </view>
+                                    </view>
+                                </view>
+                        </view>
+                    </view>
+                </view>               
+            </view>
+        </view>  
+        <view class="footer-btn">
+            <view class="weui-flex">
+                <view class="weui-flex__item">
+                    <button class="weui-btn" type="default" @tap="save()">保存</button> 
+                </view>
+                <view class="weui-flex__item">
+                    <button class="weui-btn" type="primary">提交</button>     
+                </view>
+            </view>                                               
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from "wepy";
+export default class AssessTable extends wepy.page{
+    config = {
+        navigationBarTitleText: '填写评估表'
+     }
+    onLoad(){
+    }; 
+    data = {
+        currentList:2,
+        list:[
+            {
+                id: 1,
+                name: '哈哈',
+                open: false
+            },
+            {
+                id: 2,
+                name: '哈哈哈哈',
+                open: false
+            },
+            {
+                id: 3,
+                name: '哈哈哈哈',
+                open: false
+            },
+        ],
+        config:[
+            {
+                id: 2,
+                name: '配置项1' 
+            },
+            {
+                id: 3,
+                name: '配置项1' 
+            },
+            {
+                id: 4,
+                name: '配置项1' 
+            },
+            {
+                id: 5,
+                name: '配置项1' 
+            },
+            {
+                id: 6,
+                name: '配置项1' 
+            },
+            {
+                id: 7,
+                name: '配置项1' 
+            },
+            {
+                id: 8,
+                name: '配置项1' 
+            },
+            {
+                id: 9,
+                name: '配置项1' 
+            },
+
+            {
+                id: 10,
+                name: '配置项1' 
+            },
+            {
+                id: 11,
+                name: '配置项1' 
+            },
+            {
+                id: 13,
+                name: '配置项1' 
+            },
+            {
+                id: 14,
+                name: '配置项1' 
+            },
+            {
+                id: 15,
+                name: '配置项1' 
+            },
+            {
+                id: 16,
+                name: '配置项1' 
+            },
+        ]
+    };
+    methods = {
+            toggle (id) {
+                this.list.forEach(v => v.open = (v.id === id) ? !v.open : false);
+            },
+            clickLeftList(id) {
+               this.currentList = id;
+            },
+            save(){
+                wx.navigateTo({
+                    url: 'assessDetail',
+                    success: function(res){
+                        // success
+                    },
+                    fail: function() {
+                        // fail
+                    },
+                    complete: function() {
+                        // complete
+                    }
+                })
+            },
+            clickCameraImage () {
+                wx.chooseImage({
+                            count: 1,
+                            sizeType: ['original', 'compressed'],
+                            sourceType: ['album', 'camera'],
+                            success(res) {
+                                // tempFilePath可以作为img标签的src属性显示图片
+                                const tempFilePaths = res.tempFilePaths;
+                                console.log('res', res)
+                            }
+                 })
+            },
+            clickVideoImage (){
+                wx.chooseVideo({
+                sourceType: ['album', 'camera'],
+                maxDuration: 60,
+                camera: 'back',
+                success(res) {
+                    console.log(res.tempFilePath)
+                }
+                })
+            }
+    };
+}
+</script>
