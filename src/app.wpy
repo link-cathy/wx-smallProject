@@ -106,6 +106,7 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
+      // 'pages/login/index',
       'pages/index',
       'pages/manage',
       'pages/manage/backlog/backLogTask',
@@ -159,30 +160,18 @@ export default class extends wepy.app {
   }
 
   onLaunch() {
-    this.testAsync();
-  }
-
-  sleep (s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved')
-      }, s * 1000)
-    })
-  }
-
-  async testAsync () {
-    const data = await this.sleep(3)
-    console.log(data)
+    this.getUserInfo()
   }
 
   getUserInfo(cb) {
-    const that = this
+    const that = this;
     if (this.globalData.userInfo) {
       return this.globalData.userInfo
     }
     wepy.getUserInfo({
       success (res) {
-        that.globalData.userInfo = res.userInfo
+        that.globalData.userInfo = res.userInfo;
+        console.log(res, 77777);
         cb && cb(res.userInfo)
       }
     })

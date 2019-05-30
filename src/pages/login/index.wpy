@@ -1,25 +1,120 @@
 <style lang="less">
-
+.login{
+    .weui-input{
+        height:3.58823529em;
+        min-height:3.58823529em;
+        line-height:3.58823529em;
+    }
+    .view-flex{
+        justify-content: center;
+        .logo-style{
+            height: 100px;
+            width: 100px;
+        }
+    }
+    .login-flex{
+        padding: 16px 0;
+        .weui-flex__item{
+            text-align: center;
+            .text{
+                color: #3CC51F;
+                font-weight: 500;
+                padding-bottom: 10px;
+                border-bottom: 2px solid#3CC51F;
+            }
+            .no-active{
+                opacity: 0.7;
+                border-bottom:none;
+            }
+        }
+    }
+    .phone-style,.password-style{
+       .page__bd_spacing{
+           margin-top: 20px;
+       }
+    }
+}
 </style>
 
 <template>
-        <view>
-            <open-data type="userAvatarUrl"></open-data>
-            <open-data type="userNickName"></open-data>
-            <!-- 需要使用 button 来授权登录 -->
-            <button
-            wx:if="{{canIUse}}"
-            open-type="getUserInfo"
-            bindgetuserinfo="bindGetUserInfo"
-            >
-            授权登录
-            </button>
-            <view wx:else>请升级微信版本</view>
+    <view class="login page">
+        <view class="page__bd page__bd_spacing">
+            <view class="weui-flex view-flex">
+               <view>
+                   <image src='/img/check.jpg' class="logo-style"></image>
+               </view>
+            </view>
+            <view class="weui-flex view-flex">
+                <view><text>哗啦啦巡店</text></view>
+            </view>
+            <view class="weui-flex login-flex">
+              <view class="weui-flex__item" @tap="changeLogin(false)">
+                <text class="text {{hidden ? 'no-active' : ''}} ">验证码登陆</text>
+              </view>
+              <view class="weui-flex__item" @tap="changeLogin(true)">
+                <text class="text {{!hidden ? 'no-active' : ''}}">密码登陆</text>
+              </view>
+            </view>
+            <view class="phone-style" hidden="{{hidden}}">
+                <form>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" placeholder="请输入手机号" />
+                        </view>
+                        <view class="weui-cell__ft">
+                            <view class="weui-vcode-btn">获取验证码</view>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input">
+                        <view class="weui-cell__bd last-input">
+                            <input class="weui-input" placeholder="请输入验证码" />
+                        </view>
+                    </view>
+                    <view class="page__bd_spacing">                 
+                        <button class="weui-btn" form-type="submit" type="primary">登陆</button>     
+                    </view>
+                </form>
+            </view>
+              <view class="password-style" hidden="{{!hidden}}">
+                <form>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" placeholder="请输入手机号" />
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input">
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" placeholder="请输入密码" />
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" placeholder="请输入验证码" />
+                        </view>
+                        <view class="weui-cell__ft">
+                            <view class="weui-vcode-btn">获取验证码</view>
+                        </view>
+                    </view>
+                    <view class="page__bd_spacing">                 
+                        <button class="weui-btn" form-type="submit" type="primary">登陆</button>     
+                    </view>
+                </form>
+            </view>
         </view>
+    </view>
 </template>
 
 <script>
-export default {
-    
+import wepy from 'wepy';
+export default class Login extends wepy.page{
+    data= {
+        hidden: false
+    }
+    methods = {
+        changeLogin (flag) {
+            console.log(typeof flag, 333)
+            this.hidden = flag === 'true'?true:false;
+        }
+    }
 }
 </script>

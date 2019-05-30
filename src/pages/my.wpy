@@ -1,41 +1,59 @@
 <style type="less">
-.button-sp-area{
-    margin: 0 auto;
-    padding-top: 15px;
-    width: 60%;
-}
-.mini-btn{
-    margin-right: 5px;
+.my-self {
+   .flex-center {
+       justify-content: center;     
+    }
+    .user-view {
+        width:54px;
+        height:54px;
+        text-align:center;
+        line-height:54px;
+        border-radius:27px;
+        background:#de6552; 
+        .img-style {
+            height: 50px;
+            width: 50px;
+        }      
+    }
+    .kind-list__item{
+        background: #fff;
+    }
 }
 </style>
 <template>
-    <view class="page">
+    <view class="my-self page">
         <view class="page__hd">
-            <view class="page__title">Button</view>
-            <view class="page__desc">按钮，WeUI采用小程序原生的按钮为主体，加入一些间距的样式。</view>
+          <view class="weui-flex flex-center">
+            <view class="user-view">
+                <image class="img-style" src='/img/user.png'></image>
+            </view>            
+          </view>
         </view>
         <view class="page__bd page__bd_spacing">
-            <button class="weui-btn" type="primary">页面主操作 Normal</button>
-            <button class="weui-btn" type="primary" disabled="true">页面主操作 Disabled</button>
-
-            <button class="weui-btn" type="default">页面次要操作 Normal</button>
-            <button class="weui-btn" type="default" disabled="true">页面次要操作 Disabled</button>
-
-            <button class="weui-btn" type="warn">警告类操作 Normal</button>
-            <button class="weui-btn" type="warn" disabled="true">警告类操作 Disabled</button>
-
-            <view class="button-sp-area">
-                <button class="weui-btn" type="primary" plain="true">按钮</button>
-                <button class="weui-btn" type="primary" disabled="true" plain="true">按钮</button>
-
-                <button class="weui-btn" type="default" plain="true">按钮</button>
-                <button class="weui-btn" type="default" disabled="true" plain="true">按钮</button>
-
-                <button class="weui-btn mini-btn" type="primary" size="mini">按钮</button>
-                <button class="weui-btn mini-btn" type="default" size="mini">按钮</button>
-                <button class="weui-btn mini-btn" type="warn" size="mini">按钮</button>
-            </view>
+           <view class="weui-flex flex-center">
+               150****3344
+           </view>
+           <view class="weui-flex flex-center">
+               张三
+           </view>
         </view>
+        <view class="kind-list">
+            <view class="kind-list__item">
+                <view class="weui-flex kind-list__item-hd">
+                    <view class="weui-flex__item">组织架构</view>
+                    <view>总部-运营部门</view>
+                </view>
+                <view class="weui-flex kind-list__item-hd">
+                    <view class="weui-flex__item">岗位</view>
+                    <view>运营督导</view>
+                </view>
+            </view>
+            <view class="kind-list__item">
+                <view class="page__bd_spacing">               
+                    <button class="weui-btn"  type="primary">切换账号</button>     
+                </view>
+            </view>
+        </view>     
     </view>
 </template>
 

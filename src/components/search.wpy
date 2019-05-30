@@ -1,0 +1,60 @@
+<style lang="less">
+.search{
+    .weui-search-bar__input{
+        height: 36px;
+        line-height: 36px;
+    }
+    .weui-search-bar__cancel-btn, .weui-search-bar__label{
+        line-height: 36px;
+    }
+    .weui-icon-search_in-box{
+        top:11px;
+    }
+}
+</style>
+
+<template>
+    <view class="search page">
+        <view class="weui-search-bar">
+                <view class="weui-search-bar__form">
+                    <view class="weui-search-bar__box">
+                        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                            <icon type="clear" size="14"></icon>
+                        </view>
+                    </view>
+                    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                        <icon class="weui-icon-search" type="search" size="14"></icon>
+                        <view class="weui-search-bar__text">搜索</view>
+                    </label>
+                </view>
+                <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="searchBut">取消</view>
+        </view> 
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Search extends wepy.component{
+     data = {
+            inputShowed: false,
+            inputVal: ''
+        };
+     methods = {
+            showInput () {
+                this.inputShowed = true;
+            },
+            searchBut () {
+                this.inputVal = '';
+                this.inputShowed = false;
+            },
+            clearInput () {
+                this.inputVal = '';
+            },
+            inputTyping (e) {
+                this.inputVal = e.detail.value;
+            },
+     }
+}
+</script>

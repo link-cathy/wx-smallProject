@@ -45,23 +45,7 @@
                     <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
                 </view> -->
             </view>
-
-            <view class="weui-search-bar">
-                <view class="weui-search-bar__form">
-                    <view class="weui-search-bar__box">
-                        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
-                        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
-                            <icon type="clear" size="14"></icon>
-                        </view>
-                    </view>
-                    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
-                        <icon class="weui-icon-search" type="search" size="14"></icon>
-                        <view class="weui-search-bar__text">搜索</view>
-                    </label>
-                </view>
-                <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
-            </view>           
+            <search></search>         
             <view class="weui-cells_after-title">
                 <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                     <view class="weui-cell__hd">
@@ -82,30 +66,14 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+import wepy from 'wepy';
+import Search from '@/components/search';
 export default class TaskDetail extends wepy.page{
         config = {
              navigationBarTitleText: '任务详情'
         }
-        data = {
-            inputShowed: false,
-            inputVal: ''
-        };
-
-        methods = {
-            showInput () {
-                this.inputShowed = true;
-            },
-            hideInput () {
-                this.inputVal = '';
-                this.inputShowed = false;
-            },
-            clearInput () {
-                this.inputVal = '';
-            },
-            inputTyping (e) {
-                this.inputVal = e.detail.value;
-            }
+        components = {
+            search: Search
         }
 }
 </script>
